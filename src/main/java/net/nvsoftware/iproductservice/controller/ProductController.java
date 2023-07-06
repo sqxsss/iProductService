@@ -1,6 +1,8 @@
 package net.nvsoftware.iproductservice.controller;
 
+import net.nvsoftware.iproductservice.entity.ProductEntity;
 import net.nvsoftware.iproductservice.model.ProductRequest;
+import net.nvsoftware.iproductservice.model.ProductResponse;
 import net.nvsoftware.iproductservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,5 +20,11 @@ public class ProductController {
     public ResponseEntity<Long> createProduct(@RequestBody ProductRequest productRequest){
         long productId = productService.createProduct(productRequest);
         return new ResponseEntity<>(productId, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{productId}")
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable long productId){
+        ProductResponse productResponse = productService.getProductById(productId);
+        return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 }
